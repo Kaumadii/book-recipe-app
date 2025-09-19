@@ -40,8 +40,8 @@ function App() {
       setImageFile(null);
       e.target.reset(); // clear form
     } catch (err) {
-      console.error(err);
-      alert("Failed to add recipe.");
+      console.error("❌ Upload failed:", err.response?.data || err.message);
+    alert("Failed to add recipe: " + (err.response?.data?.error || err.message));
     }
   };
 
@@ -116,13 +116,16 @@ function App() {
                 className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition relative"
               >
                 <img
-                  src={
-                    recipe.image ||
-                    "https://via.placeholder.com/300x200.png?text=No+Image"
-                  }
-                  alt={recipe.title}
-                  className="w-full h-40 object-cover rounded-lg mb-4"
-                />
+  src={
+    recipe.image?.startsWith("http")
+      ? recipe.image
+      : recipe.image
+      ? `http://localhost:5000${recipe.image}`
+      : "https://via.placeholder.com/300x200.png?text=No+Image"
+  }
+  alt={recipe.title}
+  className="w-full h-40 object-cover rounded-lg mb-4"
+/>
                 <h4 className="text-lg font-bold text-blue-600">
                   {recipe.title}
                 </h4>
