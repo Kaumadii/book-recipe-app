@@ -23,8 +23,8 @@ router.post("/", upload.single("image"), async (req, res) => {
       author: req.body.author,
       description: req.body.description,
       image: req.file
-        ? `http://localhost:5000/uploads/${req.file.filename}`
-        : req.body.image, // fallback if no file uploaded
+  ? `/uploads/${req.file.filename}` // ✅ relative path only
+  : req.body.image,
     });
 
     await newRecipe.save();
@@ -50,6 +50,16 @@ router.delete("/:id", async (req, res) => {
     const deleted = await Recipe.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ error: "Recipe not found" });
     res.json({ message: "Recipe deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 🐞 Debug route - list all recipes with image field
+router.get("/debug/all", async (req, res) => {
+  try {
+    const recipes = await Recipe.find();
+    res.json(recipes);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
