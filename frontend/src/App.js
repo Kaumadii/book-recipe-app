@@ -7,6 +7,7 @@ function App() {
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   // Fetch recipes
   useEffect(() => {
@@ -134,6 +135,14 @@ function App() {
                   {recipe.description || "No description provided."}
                 </p>
 
+                <button
+  onClick={() => setSelectedRecipe(recipe)}
+  className="mt-3 px-4 py-2 bg-indigo-500 text-white text-sm rounded hover:bg-indigo-600"
+>
+  👁 View Details
+</button>
+
+
                 {/* Delete button */}
                 <button
                   onClick={async () => {
@@ -160,6 +169,29 @@ function App() {
           </div>
         )}
       </section>
+      {selectedRecipe && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
+      <button
+        onClick={() => setSelectedRecipe(null)}
+        className="absolute top-2 right-2 text-gray-600 hover:text-black"
+      >
+        ✕
+      </button>
+      <img
+        src={selectedRecipe.image || "https://via.placeholder.com/400x300"}
+        alt={selectedRecipe.title}
+        className="w-full h-48 object-cover rounded-lg mb-4"
+      />
+      <h2 className="text-xl font-bold text-blue-600">{selectedRecipe.title}</h2>
+      <p className="text-gray-700 mb-2">by {selectedRecipe.author || "Unknown"}</p>
+      <p className="text-gray-600">{selectedRecipe.description}</p>
+      <p className="text-gray-400 text-sm mt-3">
+        Added: {new Date(selectedRecipe.createdAt).toLocaleString()}
+      </p>
+    </div>
+  </div>
+)}
     </div>
   );
 }
