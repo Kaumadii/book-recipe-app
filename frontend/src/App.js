@@ -116,12 +116,10 @@ function App() {
                 key={recipe._id}
                 className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition relative"
               >
-                <img
+          <img
   src={
-    recipe.image?.startsWith("http")
-      ? recipe.image
-      : recipe.image
-      ? `http://localhost:5000${recipe.image}`
+    recipe.image
+      ? `http://localhost:5000${recipe.image}`   // ✅ prepend server URL
       : "https://via.placeholder.com/300x200.png?text=No+Image"
   }
   alt={recipe.title}
