@@ -177,10 +177,14 @@ function App() {
         ✕
       </button>
       <img
-        src={selectedRecipe.image || "https://via.placeholder.com/400x300"}
-        alt={selectedRecipe.title}
-        className="w-full h-48 object-cover rounded-lg mb-4"
-      />
+  src={
+    selectedRecipe.image
+      ? `http://localhost:5000${selectedRecipe.image}`
+      : "https://via.placeholder.com/400x300"
+  }
+  alt={selectedRecipe.title}
+  className="w-full max-h-[500px] object-contain rounded-lg mb-4"
+/>
       <h2 className="text-xl font-bold text-blue-600">{selectedRecipe.title}</h2>
       <p className="text-gray-700 mb-2">by {selectedRecipe.author || "Unknown"}</p>
       <p className="text-gray-600">{selectedRecipe.description}</p>
