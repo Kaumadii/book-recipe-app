@@ -116,15 +116,16 @@ function Home() {
                 key={recipe._id}
                 className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition relative"
               >
-          <img
+    <img
   src={
-    recipe.image
-      ? `http://localhost:5000${recipe.image}`   // ✅ prepend server URL
+    recipe.imageURL
+      ? `http://localhost:5000${recipe.imageURL}`
       : "https://via.placeholder.com/300x200.png?text=No+Image"
   }
   alt={recipe.title}
   className="w-full h-40 object-cover rounded-lg mb-4"
 />
+
                 <h4 className="text-lg font-bold text-blue-600">
                   {recipe.title}
                 </h4>
@@ -172,10 +173,10 @@ function Home() {
       >
         ✕
       </button>
-      <img
+   <img
   src={
-    selectedRecipe.image
-      ? `http://localhost:5000${selectedRecipe.image}`
+    selectedRecipe.imageURL
+      ? `http://localhost:5000${selectedRecipe.imageURL}`
       : "https://via.placeholder.com/400x300"
   }
   alt={selectedRecipe.title}
